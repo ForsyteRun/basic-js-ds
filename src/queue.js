@@ -15,40 +15,48 @@ const { ListNode } = require('../extensions/list-node.js');
  */
 class Queue {
 
-  getUnderlyingList() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor() {
+    this.first = null
+    this.last = null
+    this.length = 0   
+  }
+  
+  isEmpty() {
+    return this.first == null;
   }
 
-  enqueue(data) {
-    let newNode = new Node (data)
+  getUnderlyingList() {
+    return this.first
+  }
 
+  enqueue(value) {
+    const newNode = new ListNode(value);
 
-    let currentNode = this.init;
-
-    while (currentNode) {
-      if (data < currentNode.data) {
-        if (!currentNode.left) {
-          currentNode.left = newNode;
-          return this;
-        } else {
-          currentNode = currentNode.left;
-        }
-
-      } else {
-        if (!currentNode.right) {
-          currentNode.right = newNode;
-          return this;
-        } else {
-          currentNode = currentNode.right;
-        }
-      }
+    if (this.isEmpty()) {
+      this.first = newNode;
+      this.last = newNode;
     }
+    else {
+      this.last.next = newNode;
+      this.last = newNode;
+    }
+    this.length++;
+    return this ;
   }
 
   dequeue() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+    if (this.isEmpty()) return null;
+
+    const itemToDel = this.first;
+
+    if (this.first === this.last) {
+      this.last = null;
+    }
+
+    this.first = this.first.next;
+    this.length--;
+    return itemToDel.value;
   }
 }
 
